@@ -8,7 +8,7 @@
 
     public function getIndex()
     {
-      return View::make('test.index');
+      return View::make('index');
     }
 
 
