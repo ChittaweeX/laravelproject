@@ -20,5 +20,44 @@
   </head>
   <body>
 
+    <div class="container">
+
+        <!-- The justified navigation menu is meant for single line per list item.
+             Multiple lines will require custom code not provided by Bootstrap. -->
+        <div class="masthead">
+          @yield('title')
+          <nav>
+            <ul class="nav nav-justified">
+              <li class="active"><a href="#">Home</a></li>
+              <li><a href="#">Projects</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Downloads</a></li>
+              <li><a href="#">About</a></li>
+              <li><a href="#">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+
+
+
+        <!-- slider -->
+
+          @yield('slider')
+
+
+        <div class="row">
+          @yield('maincontent')
+        </div>
+
+        <!-- Site footer -->
+        <footer class="footer">
+          <p>&copy; Company 2014</p>
+        </footer>
+
+      </div> <!-- /container -->
+
+
+
+
   </body>
   </html>
