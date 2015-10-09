@@ -13,7 +13,12 @@
 
 Route::get('/', function()
 {
-	return View::make('index');
+	 return Redirect::to('home');
 });
 
-Route::controller('test', 'TestController');
+Route::controller('home', 'HomeController');
+
+
+// Backend
+Route::controller('admin/user', 'Admin_UserController');
+Route::controller('admin', 'AdminController');

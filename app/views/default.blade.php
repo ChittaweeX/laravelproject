@@ -22,36 +22,42 @@
 
     <div class="container">
 
+
         <!-- The justified navigation menu is meant for single line per list item.
              Multiple lines will require custom code not provided by Bootstrap. -->
         <div class="masthead">
           @yield('title')
           <nav>
             <ul class="nav nav-justified">
-              <li class="active"><a href="#">Home</a></li>
+              @if( Request::segment(1) == 'admin')
+              <li class="active"><a href="{{url('admin')}}">Admin</a></li>
+              <li><a href="{{url('admin/user')}}">User</a></li>
+              <li><a href="{{url('home')}}">Shop</a></li>
+              @else
+              <li class="active"><a href="{{url('home')}}">Home</a></li>
               <li><a href="#">Projects</a></li>
-              <li><a href="#">Services</a></li>
-              <li><a href="#">Downloads</a></li>
-              <li><a href="#">About</a></li>
-              <li><a href="#">Contact</a></li>
+              <li><a href="{{url('admin')}}">Admin</a></li>
+              @endif
             </ul>
           </nav>
         </div>
 
-
+        <!-- page header-->
+          @yield('pageinfor')
 
         <!-- slider -->
+
 
           @yield('slider')
 
 
-        <div class="row">
+
           @yield('maincontent')
-        </div>
+
 
         <!-- Site footer -->
         <footer class="footer">
-          <p>&copy; Company 2014</p>
+          <p>&copy; S.I.N.Commercial</p>
         </footer>
 
       </div> <!-- /container -->
