@@ -11,6 +11,11 @@ class Admin_UserController extends Controller
     return View::make('admin.user.index');
   }
 
+  public function getCreate()
+  {
+   return View::make('admin.user.form');
+  }
+
 }
 
 

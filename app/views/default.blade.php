@@ -13,6 +13,9 @@
     <!-- Bootstrap core CSS -->
     <link href="{{ URL::to('assets/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
+    <!-- font-awesome core CSS -->
+    <link href="{{ URL::to('assets/font-awesome/css/font-awesome.css')}}" rel="stylesheet">
+
     <!-- Custom CSS -->
     <link href="{{ URL::to('assets/customcss/justified-nav.css')}}" rel="stylesheet">
 
@@ -30,11 +33,11 @@
           <nav>
             <ul class="nav nav-justified">
               @if( Request::segment(1) == 'admin')
-              <li class="active"><a href="{{url('admin')}}">Admin</a></li>
-              <li><a href="{{url('admin/user')}}">User</a></li>
+              <li {{ ( Request::segment(2) == 'index' ? 'class="active"' : '') }}><a href="{{url('admin/index')}}">Admin <i class="fa fa-users"></i></a></li>
+              <li {{ ( Request::segment(2) == 'user' ? 'class="active"' : '') }}><a href="{{url('admin/user')}}">User <i class="fa fa-users"></i></a></li>
               <li><a href="{{url('home')}}">Shop</a></li>
               @else
-              <li class="active"><a href="{{url('home')}}">Home</a></li>
+              <li {{ ( Request::segment(1) == 'home' ? 'class="active"' : '') }} ><a href="{{url('home')}}">Home</a></li>
               <li><a href="#">Projects</a></li>
               <li><a href="{{url('admin')}}">Admin</a></li>
               @endif
