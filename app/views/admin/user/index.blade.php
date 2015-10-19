@@ -21,23 +21,29 @@
     <th>
       Group
     </th>
-    <th>
+    <th width="20%">
       Action
     </th>
   </thead>
   <tbody>
-    <tr>
-      <td>
-        A
-      </td>
-      <td>
-        A
-      </td>
-      <td>
-        <a class="btn btn-default" href="#" role="button">แก้ไข</a>
-        <a class="btn btn-default" href="#" role="button">ลบ</a>
-      </td>
-    </tr>
+    @if( count($users)>0)
+      @foreach($users as $u)
+      <tr>
+        <td>
+          {{ $u->fullname }}
+        </td>
+        <td>
+          {{ $u->user_group }}
+        </td>
+        <td>
+          <a class="btn btn-default" href="{{ url("admin/user/update/$u->id")}}" role="button">แก้ไข</a>
+          <a class="btn btn-default" href="#" role="button">ลบ</a>
+        </td>
+      </tr>
+
+      @endforeach
+    @endif
+
   </tbody>
 </table>
 @endsection

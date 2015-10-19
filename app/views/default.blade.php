@@ -44,14 +44,19 @@
             </ul>
           </nav>
         </div>
+        @if(Session::has('message'))
+          <div class="alert alert-success" role="alert" style="margin-top:20px;">
+              {{ Session::get('message')}}
+          </div>
+        @endif
+
 
         <!-- page header-->
           @yield('pageinfor')
 
         <!-- slider -->
+        @yield('slider')
 
-
-          @yield('slider')
 
 
 
