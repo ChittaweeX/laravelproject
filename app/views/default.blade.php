@@ -8,7 +8,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Laravel Shop</title>
+    <title>E-Commerec Shop</title>
 
     <!-- Bootstrap core CSS -->
     <link href="{{ URL::to('assets/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -34,8 +34,10 @@
             <ul class="nav nav-justified">
               @if( Request::segment(1) == 'admin')
               <li {{ ( Request::segment(2) == 'index' ? 'class="active"' : '') }}><a href="{{url('admin/index')}}">Admin <i class="fa fa-users"></i></a></li>
+              <li {{ ( Request::segment(2) == 'product' ? 'class="active"' : '') }}><a href="{{url('admin/product')}}">Product <i class="fa fa-users"></i></a></li>
               <li {{ ( Request::segment(2) == 'user' ? 'class="active"' : '') }}><a href="{{url('admin/user')}}">User <i class="fa fa-users"></i></a></li>
               <li><a href="{{url('home')}}">Shop</a></li>
+              <li><a href="{{url('login/logout')}}">Log out</a></li>
               @else
               <li {{ ( Request::segment(1) == 'home' ? 'class="active"' : '') }} ><a href="{{url('home')}}">Home</a></li>
               <li><a href="#">Projects</a></li>
@@ -45,7 +47,7 @@
           </nav>
         </div>
         @if(Session::has('message'))
-          <div class="alert alert-success" role="alert" style="margin-top:20px;">
+          <div class="alert alert-info" role="alert" style="margin-top:20px;">
               {{ Session::get('message')}}
           </div>
         @endif

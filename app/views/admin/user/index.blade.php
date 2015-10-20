@@ -37,7 +37,7 @@
         </td>
         <td>
           <a class="btn btn-default" href="{{ url("admin/user/update/$u->id")}}" role="button">แก้ไข</a>
-          <a class="btn btn-default" href="#" role="button">ลบ</a>
+          <a class="btn btn-default" href="{{ url("admin/user/delete/$u->id")}}" role="button">ลบ</a>
         </td>
       </tr>
 
@@ -45,5 +45,7 @@
     @endif
 
   </tbody>
+
 </table>
+  {{ $users->links(); }}
 @endsection

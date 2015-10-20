@@ -9,8 +9,9 @@ class Admin_UserController extends Controller
   public function getIndex()
   {
     $data = array(
-      'users' => User::all()
+      'users' => User::paginate(3)
      );
+
 
     return View::make('admin.user.index', $data);
   }
@@ -62,7 +63,27 @@ class Admin_UserController extends Controller
   public function postUpdate()
   {
     $inputs = Input::all();
-    dd($inputs);
+
+    $user = User::find($inputs['id']); //หา Data ก่อน คำสั่ง find ใช้กับ id
+    if (is_object($user)) {
+      $user->username = $inputs['username'];
+      $user->password = ! empty($inputs['password']) ?  Hash::Make($inputs['password']) : $user->password ;
+      $user->fullname = $inputs['fullname'];
+      $user->user_group = $inputs['group'];
+      $user->save();
+
+      return Redirect::to('admin/user')->with('message', 'Update Completed');
+    }
+  }
+
+  public function getDelete($id)
+  {
+    $user = User::find($id);
+    if (is_object($user)) {
+      $user->delete();
+    }
+
+    return Redirect::to('admin/user')->with('message', 'Delete Completed');
   }
 
 }

@@ -16,9 +16,19 @@ Route::get('', function()
 	 return Redirect::to('home');
 });
 
+Route::get('/', function()
+{
+	 return Redirect::to('home');
+});
+
 Route::controller('home', 'HomeController');
 
 
 // Backend
-Route::controller('admin/user', 'Admin_UserController');
-Route::controller('admin', 'AdminController');
+Route::controller('login', 'LoginController');
+Route::group(array('before'=>'auth'),function()
+{
+	Route::controller('admin/product', 'Admin_ProductController');
+	Route::controller('admin/user', 'Admin_UserController');
+	Route::controller('admin', 'AdminController');
+});
