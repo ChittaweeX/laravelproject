@@ -19,6 +19,9 @@
     <!-- Custom CSS -->
     <link href="{{ URL::to('assets/customcss/justified-nav.css')}}" rel="stylesheet">
 
+    @section('custom-style') @show
+
+
 
   </head>
   <body>
@@ -39,9 +42,12 @@
               <li><a href="{{url('home')}}">Shop</a></li>
               <li><a href="{{url('login/logout')}}">Log out</a></li>
               @else
-              <li {{ ( Request::segment(1) == 'home' ? 'class="active"' : '') }} ><a href="{{url('home')}}">Home</a></li>
-              <li><a href="#">Projects</a></li>
-              <li><a href="{{url('admin')}}">Admin</a></li>
+              <li {{ ( Request::segment(1) == 'home' || Request::segment(1) == '' ? 'class="active"' : '') }} ><a href="{{url('home')}}">Home</a></li>
+              <li {{ ( Request::segment(1) == 'cart' ? 'class="active"' : '') }}><a href="{{url('cart/my-cart')}}">Cart</a></li>
+              <li><a href="{{url('admin')}}">How to buy</a></li>
+              <li><a href="{{url('admin')}}">Inform Payment</a></li>
+              <li><a href="{{url('admin')}}">About us</a></li>
+
               @endif
             </ul>
           </nav>
@@ -67,11 +73,15 @@
 
         <!-- Site footer -->
         <footer class="footer">
+          <a class="btn btn-default" href="{{url('admin')}}">AdminPage</a>
           <p>&copy; S.I.N.Commercial</p>
         </footer>
 
       </div> <!-- /container -->
+      <script type="text/javascript" src="{{ url('assets/jquery-1.11.3.js')}}">
 
+      </script>
+      @section('custom-js') @show
 
 
 

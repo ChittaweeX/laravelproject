@@ -7,7 +7,10 @@ class HomeController extends Controller
 {
   public function getIndex()
   {
-    return View::make('index');
+    $data = array(
+      'product' => Product::all() );
+
+    return View::make('index',$data);
   }
 
 

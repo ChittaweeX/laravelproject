@@ -4,7 +4,7 @@
 @endsection
 @section('pageinfor')
 <div class="page-header">
-  <h1>Product <small>Backend Shop</small>
+  <h1>Product {{ count(Product::all()) }} <small>Record</small>
     <div class="pull-right">
       <a class="btn btn-success btn-lg" href="{{ url('admin/product/create') }}" role="button">Create Product</a>
     </div>
@@ -17,13 +17,13 @@
     <div class="col-md-12 table-responsive">
       <table class="table table-bordered">
         <thead>
-          <th>
+          <th width="30%" class="text-center" >
             Photo
           </th>
-          <th>
+          <th width="20%">
             Name
           </th>
-          <th>
+          <th width="20%">
             Detail
           </th>
           <th>
@@ -34,26 +34,37 @@
           </th>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              a
-            </td>
-            <td>
-              a
-            </td>
-            <td>
-              a
-            </td>
-            <td>
-              a
-            </td>
-            <td>
-              <a class="btn btn-default" href="{{ url("admin/user/update/")}}" role="button">แก้ไข</a>
-              <a class="btn btn-default" href="{{ url("admin/user/delete/")}}" role="button">ลบ</a>
-            </td>
-          </tr>
+          @if( count($products) >0 )
+            @foreach($products as $p)
+            <tr>
+              <td align="center">
+                @if($p->photo != null)
+                  <img src="{{ asset('uploads/'.$p->photo) }}" alt="" class="img-responsive" width="50%" height="50%"/>
+                @else
+                Empty
+                @endif
+              </td>
+              <td>
+                {{ $p->name }}
+              </td>
+              <td>
+                {{ $p->detail }}
+              </td>
+              <td>
+                {{ $p->price }}
+              </td>
+              <td>
+                <a class="btn btn-default" href="{{ url("admin/product/update/$p->id")}}" role="button">แก้ไข</a>
+                <a class="btn btn-default" href="{{ url("admin/product/delete/$p->id")}}" role="button">ลบ</a>
+              </td>
+            </tr>
+            @endforeach
+          @endif
+
         </tbody>
       </table>
+
+      {{ $products->links() }}
     </div>
 
   </div>
