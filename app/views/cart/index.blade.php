@@ -10,17 +10,18 @@
 @section('maincontent')
 
 
-
  @if(count($products) > 0)
-    <div class="row">
+ <?php
+ $total = 0 ;
+  ?>
+<div class="row">
            <div class="col-lg-12 col-md-10 ">
-               <table class="table table-hover">
+               <table class="table table-bordered">
                    <thead>
                        <tr>
                            <th>Product</th>
                            <th>Quantity</th>
                            <th class="text-center">Price</th>
-                           <th class="text-center">Total</th>
                            <th> </th>
                        </tr>
                    </thead>
@@ -30,54 +31,46 @@
                      <tr>
                          <td class="col-sm-8 col-md-6">
                          <div class="media">
-                             <a class="thumbnail pull-left" href="#"> <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png" style="width: 72px; height: 72px;"> </a>
+                             <a class="pull-left" href="#"> <img class="img-responsive" src="{{ asset('uploads/'.$p->photo) }}" style="width: 72px; height: 72px;"> </a>
                              <div class="media-body">
-                                 <h4 class="media-heading"><a href="#">{{ $p->name }}</a></h4>
-                                 <h5 class="media-heading"> by <a href="#">Brand name</a></h5>
-                                 <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
-                             </div>
+                                 <h4 class="media-heading">{{ $p->name }}</h4>
+                              </div>
                          </div></td>
                          <td class="col-sm-1 col-md-1" style="text-align: center">
-                         <input type="email" class="form-control" id="exampleInputEmail1" value="3">
+                           <input type="hidden" name="pid[]" value="{{ $p->id }}" class="pid">
+                           <input type="hidden" name="price[]" value="{{ $p->price }}" class="price">
+                           <input type="number" class="form-control amount" id="amount" name="amount[]" value="{{ $amounts[$p->id] }}" onclick="updateAmount('{{ $p->id }}', this.value);">
                          </td>
-                         <td class="col-sm-1 col-md-1 text-center"><strong>$4.87</strong></td>
-                         <td class="col-sm-1 col-md-1 text-center"><strong>$14.61</strong></td>
+                         <td class="col-sm-1 col-md-1 text-center"><strong>{{ number_format($p->price)  }}</strong></td>
                          <td class="col-sm-1 col-md-1">
-                         <button type="button" class="btn btn-danger">
+                         <a  href="{{ url("cart/remove-product/$p->id") }}"class="btn btn-danger">
                              <span class="glyphicon glyphicon-remove"></span> Remove
-                         </button></td>
+                         </a></td>
                      </tr>
-
+                      <?php $total += $p->price * ($amounts[$p->id]); ?>
                      @endforeach
                      <tr>
-                          <td>   </td>
-                          <td>   </td>
-                          <td>   </td>
-                          <td><h5>Subtotal</h5></td>
-                          <td class="text-right"><h5><strong>$24.59</strong></h5></td>
-                      </tr>
-                      <tr>
-                          <td>   </td>
-                          <td>   </td>
-                          <td>   </td>
+
+                          <td style="border-color: #ffffff">   </td>
+                          <td style="border-color: #ffffff">   </td>
                           <td><h5>Estimated shipping</h5></td>
-                          <td class="text-right"><h5><strong>$6.94</strong></h5></td>
+                          <td class="text-right"><h5><strong>free</strong></h5></td>
                       </tr>
                       <tr>
-                          <td>   </td>
-                          <td>   </td>
-                          <td>   </td>
+
+                          <td style="border-color: #ffffff">   </td>
+                          <td style="border-color: #ffffff">   </td>
                           <td><h3>Total</h3></td>
-                          <td class="text-right"><h3><strong>$31.53</strong></h3></td>
+                          <td class="text-right"><h3 ><strong id="sumPrice">{{ number_format( $total) }}</strong></h3></td>
                       </tr>
                       <tr>
-                          <td>   </td>
-                          <td>   </td>
-                          <td>   </td>
+
+                          <td style="border-color: #ffffff">   </td>
+                          <td style="border-color: #ffffff">   </td>
                           <td>
-                          <button type="button" class="btn btn-default">
+                          <a class="btn btn-default" href="{{ url('home') }}">
                               <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
-                          </button></td>
+                          </a></td>
                           <td>
                           <button type="button" class="btn btn-success">
                               Checkout <span class="glyphicon glyphicon-play"></span>
@@ -93,4 +86,49 @@
     @else
     <h1>ไม่พบสินค้า !!!! </h1>
   @endif
+@endsection
+@section('custom-js')
+  <script type="text/javascript">
+    function updatePrice()
+    {
+      var total = 0;
+      var pids = $('.pid');
+      var prices = $('.price');
+      var amounts = $('.amount');
+      var product_all = pids.length;
+      var total = 0;
+      for (var i=0; i<product_all; i++)
+      {
+
+        pid = pids[i].value;
+        price = prices[i].value;
+        amount = amounts[i].value;
+
+        total = total+price*amount;
+
+
+      }
+
+
+      $('#sumPrice').html(total)
+
+
+
+    }
+
+    function updateAmount(pid,amount)
+    {
+      $.ajax({
+          type: 'get',
+          url: '{{ url("cart/update-amount/'+pid+'/'+amount+'") }}',
+          success: function(data)
+          {
+             if (data == 'success')
+             {
+               updatePrice();
+             }
+          }
+        });
+    }
+  </script>
 @endsection
