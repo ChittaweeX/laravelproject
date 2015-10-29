@@ -72,7 +72,7 @@
 
 
         <!-- Site footer -->
-        <footer class="footer">
+        <footer class="fooer">
           <a class="btn btn-default" href="{{url('admin')}}">AdminPage</a>
           <p>&copy; S.I.N.Commercial</p>
         </footer>
